@@ -18,7 +18,7 @@ current_shown_dates={}
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 dp.middleware.setup(LoggingMiddleware())
-logging.basicConfig(filename='botMessage.log', level=logging.INFO)
+# logging.basicConfig(filename='botMessage.log', level=logging.INFO)
 
 # cmessage == 0 - старт и просьба входа. будет требовать логин
 # cmessage == 1 - будет требовать пароль
