@@ -243,31 +243,34 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
 @dp.message_handler()
 async def echo_message(msg: types.Message):
     if cmessage == 0:
-        emailvar = msg.text
-        try:
-            valid = validate_email(emailvar)
-            emailValid = valid.email
-            setEmail(emailValid)
-            cmessageUp(1)
-            for i in range(3):
-                if i == 1:
-                    await bot.delete_message(msg.chat.id, msg.message_id)
-                if i == 2:
-                    messs = await bot.send_message(msg.from_user.id, 'Email: ' + emailValid + ' прошел валидацию.\nВведите пароль:')
-                    setBotLatestMessageId(messs.message_id)
-                if i == 0: 
-                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-        except (EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e:
-            print("Ошибка валидации email:  " + str(e))
-            # если имейл не валидный
-            for i in range(3):
-                if i == 1:
-                    await bot.delete_message(msg.chat.id, msg.message_id)
-                if i == 2:
-                    mess = await bot.send_message(msg.from_user.id, str(e))
-                    setBotLatestMessageId(mess.message_id)
-                if i == 0: 
-                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+        if not msg.text.strip():
+            print('#############  email is empty  ##########')
+        else:
+            emailvar = msg.text
+            try:
+                valid = validate_email(emailvar)
+                emailValid = valid.email
+                setEmail(emailValid)
+                cmessageUp(1)
+                for i in range(3):
+                    if i == 1:
+                        await bot.delete_message(msg.chat.id, msg.message_id)
+                    if i == 2:
+                        messs = await bot.send_message(msg.from_user.id, 'Email: ' + emailValid + ' прошел валидацию.\nВведите пароль:')
+                        setBotLatestMessageId(messs.message_id)
+                    if i == 0: 
+                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+            except (EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e:
+                print("Ошибка валидации email:  " + str(e))
+                # если имейл не валидный
+                for i in range(3):
+                    if i == 1:
+                        await bot.delete_message(msg.chat.id, msg.message_id)
+                    if i == 2:
+                        mess = await bot.send_message(msg.from_user.id, str(e))
+                        setBotLatestMessageId(mess.message_id)
+                    if i == 0: 
+                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
     elif cmessage == 1:
         emailVar = getEmail()
         dataLogin = auth(emailVar, msg.text)
@@ -322,7 +325,7 @@ async def echo_message(msg: types.Message):
                 await bot.delete_message(msg.chat.id, msg.message_id)
         
     elif cmessage == 4:  # 2 шаг при добавлении карты
-        setDescrExpCard(msg.text)
+        setDescrExpCard(msg.text.strip())
         cmessageUp(5)
         for i in range(3):
             if i == 1:
