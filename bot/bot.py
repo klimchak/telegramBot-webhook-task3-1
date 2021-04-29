@@ -264,12 +264,12 @@ async def echo_message(msg: types.Message):
                 print("Ошибка валидации email:  " + str(e))
                 # если имейл не валидный
                 for i in range(3):
-                    if i == 1:
+                    if i == 0:
                         await bot.delete_message(msg.chat.id, msg.message_id)
                     if i == 2:
                         mess = await bot.send_message(msg.from_user.id, str(e))
                         setBotLatestMessageId(mess.message_id)
-                    if i == 0: 
+                    if i == 1: 
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
     elif cmessage == 1:
         emailVar = getEmail()
