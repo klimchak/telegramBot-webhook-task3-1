@@ -1,5 +1,5 @@
 import logging
-
+import sys
 from aiogram import Bot, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.dispatcher import Dispatcher
@@ -154,6 +154,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
 
     if code == 'exit':
         print('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
+        sys.stdout.flush()
         # logging.info('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
         cmessageUp(0)
         for i in range(3):
