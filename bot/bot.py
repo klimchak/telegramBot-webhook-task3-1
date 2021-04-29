@@ -87,7 +87,7 @@ async def process_start_command(message: types.Message):
         if i == 1:
             await bot.delete_message(message.chat.id, message.message_id)
         if i == 0: 
-            messs = await bot.send_message(message.chat.id, "Введите логин", reply_markup=keyboard.ReplyKeyboardRemove())
+            messs = await bot.send_message(message.chat.id, "Введите логин", reply_markup=ReplyKeyboardRemove())
             setBotLatestMessageId(messs.message_id)
 
 @dp.callback_query_handler()
@@ -105,7 +105,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 1:
                 await bot.answer_callback_query(callback_query.id)
             if i == 2:
-                messs = await bot.send_message(callback_query.from_user.id, 'На какой день желаете создать карточку?', reply_markup=keyboard.inlineKbAfterSetNewCard)
+                messs = await bot.send_message(callback_query.from_user.id, 'На какой день желаете создать карточку?', reply_markup=inlineKbAfterSetNewCard)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:
                 await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
@@ -115,7 +115,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 1:
                 await bot.answer_callback_query(callback_query.id, 'Понял. Возвращаемся назад 😒')
             if i == 2:
-                messs = await bot.send_message(callback_query.from_user.id, 'Какую операцию желаете выполнить?', reply_markup=keyboard.inlineKbAfterLogin)
+                messs = await bot.send_message(callback_query.from_user.id, 'Какую операцию желаете выполнить?', reply_markup=inlineKbAfterLogin)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
                 await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
@@ -144,7 +144,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 if i == 2:
                     await bot.send_message(callback_query.from_user.id, "Усешно! Новая карточка расходов добавлена.\nДанные карточки:" + '\n- дата карточки: ' + getDateExpCard() + '\n- сумма: ' + getCurrExpCard()  + '\n- описание траты: ' + getDescrExpCard())
                 if i == 3:
-                    mess = await bot.send_message(callback_query.from_user.id, 'Ваши дальнейшие действия? ', reply_markup=keyboard.inlineKbAfterLogin)
+                    mess = await bot.send_message(callback_query.from_user.id, 'Ваши дальнейшие действия? ', reply_markup=inlineKbAfterLogin)
                     setBotLatestMessageId(mess.message_id)                
                 if i == 0:  
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
@@ -161,7 +161,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 1:
                 await bot.answer_callback_query(callback_query.id)
             if i == 2:
-                await bot.send_message(callback_query.from_user.id, 'Вы вышли из приложения Expense App.\nДля входа нажмите /start и введите Email и пароль.', reply_markup=keyboard.kbStart)        
+                await bot.send_message(callback_query.from_user.id, 'Вы вышли из приложения Expense App.\nДля входа нажмите /start и введите Email и пароль.', reply_markup=kbStart)        
             if i == 0:  
                 await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
         
@@ -276,7 +276,7 @@ async def echo_message(msg: types.Message):
                     if i == 1:
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
                     if i == 2:
-                        mess = await bot.send_message(msg.from_user.id, 'К сожалению для администратора возможностей нет. Воспользуйтесь браузером.', reply_markup=keyboard.kbStart)
+                        mess = await bot.send_message(msg.from_user.id, 'К сожалению для администратора возможностей нет. Воспользуйтесь браузером.', reply_markup=kbStart)
                         setBotLatestMessageId(mess.message_id)
                     if i == 0: 
                         await bot.delete_message(msg.chat.id, msg.message_id)
@@ -290,7 +290,7 @@ async def echo_message(msg: types.Message):
                     if i == 2:
                         await bot.send_message(msg.from_user.id, 'Добро пожаловать ' + dataLogin['records'][0]['LastName'] + '\nВаш офис: ' + dataLogin['records'][0]['Office__c'] + '\nДата и время входа: ' + str(dateLogin)[0:19])
                     elif i == 3:
-                        mess = await bot.send_message(msg.from_user.id, 'Ваши дальнейшие действия?', reply_markup=keyboard.inlineKbAfterLogin)
+                        mess = await bot.send_message(msg.from_user.id, 'Ваши дальнейшие действия?', reply_markup=inlineKbAfterLogin)
                         setBotLatestMessageId(mess.message_id)
                     elif i == 1:
                         await bot.delete_message(msg.chat.id, msg.message_id)
@@ -314,7 +314,7 @@ async def echo_message(msg: types.Message):
             if i == 1:
                 await bot.delete_message(msg.chat.id, getBotLatestMessageId())
             if i == 2:
-                mess = await bot.send_message(msg.from_user.id, 'Извините. Я Вас не понял 😐\nВоспользуйтесь кнопками ниже 👇', reply_markup=keyboard.inlineKbAfterLogin)
+                mess = await bot.send_message(msg.from_user.id, 'Извините. Я Вас не понял 😐\nВоспользуйтесь кнопками ниже 👇', reply_markup=inlineKbAfterLogin)
                 setBotLatestMessageId(mess.message_id)
             if i == 0: 
                 await bot.delete_message(msg.chat.id, msg.message_id)
@@ -338,7 +338,7 @@ async def echo_message(msg: types.Message):
             if i == 1:
                 await bot.delete_message(msg.chat.id, msg.message_id)
             if i == 2:
-                messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=keyboard.inlineKbAnsSetCardOrNot)
+                messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=inlineKbAnsSetCardOrNot)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
                 await bot.delete_message(msg.chat.id, getBotLatestMessageId())
