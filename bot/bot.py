@@ -260,9 +260,9 @@ async def echo_message(msg: types.Message):
                         setBotLatestMessageId(messs.message_id)
                     if i == 0: 
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-            except (EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e:
+            except Exception as e:
                 print("Ошибка валидации email:  " + str(e))
-                # если имейл не валидный
+                # если имейл не валидный(EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e
                 for i in range(3):
                     if i == 0:
                         await bot.delete_message(msg.chat.id, msg.message_id)
