@@ -270,7 +270,10 @@ async def echo_message(msg: types.Message):
                         mess = await bot.send_message(msg.from_user.id, str(e))
                         setBotLatestMessageId(mess.message_id)
                     if i == 1: 
-                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        if not getBotLatestMessageId():
+                            continue
+                        else:
+                            await bot.delete_message(msg.chat.id, getBotLatestMessageId())
     elif cmessage == 1:
         emailVar = getEmail()
         dataLogin = auth(emailVar, msg.text)
