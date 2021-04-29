@@ -10,7 +10,8 @@ from bot.settings import (BOT_TOKEN, HEROKU_APP_NAME,
 from email_validator import validate_email, EmailNotValidError          # библиотека валидации имейла
 from bot.keyboard import kbStart, inlineKbAfterLogin, inlineKbAfterSetNewCard, inlineKbAnsSetCardOrNot
 from aiogram.types import ReplyKeyboardRemove
-import bot.sffunc                                                           # sf function
+from bot.sffunc import auth, getBalance, setNewExpCard, getLatestExpCard
+# import bot.sffunc                                                           # sf function
 import datetime
 from bot.telegramcalendar import create_calendar                            # для календаря
 
@@ -95,7 +96,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
     code = callback_query.data[4:]
     if code == 'balance':
         idUser = getIdContact()
-        reminder = sffunc.getBalance(idUser)
+        reminder = getBalance(idUser)
         await bot.answer_callback_query(
             callback_query.id,
             text='Ваш баланс составляет: ' + str(reminder) + '$', show_alert=True)
@@ -135,7 +136,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
     
     if code == 'setthisexpcard':
-        result = sffunc.setNewExpCard(getIdContact(), getDateExpCard(), getCurrExpCard(), getDescrExpCard())
+        result = setNewExpCard(getIdContact(), getDateExpCard(), getCurrExpCard(), getDescrExpCard())
         if result == True:
             cmessageUp(3)
             for i in range(4):
@@ -266,7 +267,7 @@ async def echo_message(msg: types.Message):
                     await bot.delete_message(msg.chat.id, getBotLatestMessageId())
     elif cmessage == 1:
         emailVar = getEmail()
-        dataLogin = sffunc.auth(emailVar, msg.text)
+        dataLogin = auth(emailVar, msg.text)
         if dataLogin['totalSize'] == 1:
             if dataLogin['records'][0]['Admin__c'] == True:
                 cmessageUp(0)
