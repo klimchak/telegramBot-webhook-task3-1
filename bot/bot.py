@@ -10,8 +10,7 @@ from bot.settings import (BOT_TOKEN, HEROKU_APP_NAME,
 from email_validator import validate_email, EmailNotValidError          # библиотека валидации имейла
 from bot.keyboard import kbStart, inlineKbAfterLogin, inlineKbAfterSetNewCard, inlineKbAnsSetCardOrNot
 from aiogram.types import ReplyKeyboardRemove
-from bot.sffunc import auth, getBalance, setNewExpCard, getLatestExpCard
-# import bot.sffunc                                                           # sf function
+from bot.sffunc import auth, getBalance, setNewExpCard, getLatestExpCard    # sf function                                                
 import datetime
 from bot.telegramcalendar import create_calendar                            # для календаря
 
@@ -19,7 +18,6 @@ current_shown_dates={}
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 dp.middleware.setup(LoggingMiddleware())
-# logging.basicConfig(filename='botMessage.log', level=logging.INFO)
 
 # cmessage == 0 - старт и просьба входа. будет требовать логин
 # cmessage == 1 - будет требовать пароль
@@ -156,7 +154,6 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
     if code == 'exit':
         print('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
         sys.stdout.flush()
-        # logging.info('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
         cmessageUp(0)
         for i in range(3):
             if i == 1:
@@ -272,7 +269,6 @@ async def echo_message(msg: types.Message):
             if dataLogin['records'][0]['Admin__c'] == True:
                 cmessageUp(0)
                 print('\n        Успешный вход администратора: ' + dataLogin['records'][0]['LastName'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
-                # logging.info('\n        Успешный вход администратора: ' + dataLogin['records'][0]['LastName'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
                 for i in range(3):
                     if i == 1:
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
@@ -284,7 +280,6 @@ async def echo_message(msg: types.Message):
             else:
                 setIdContact(dataLogin['records'][0]['Id'])
                 print('\n        Успешный вход пользователя: ' + dataLogin['records'][0]['LastName'] + '\n        Офис: ' + dataLogin['records'][0]['Office__c'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
-                # logging.info('\n        Успешный вход пользователя: ' + dataLogin['records'][0]['LastName'] + '\n        Офис: ' + dataLogin['records'][0]['Office__c'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
                 cmessageUp(3)
                 dateLogin = datetime.datetime.now()
                 for i in range(4):
@@ -347,14 +342,11 @@ async def echo_message(msg: types.Message):
 
 
 async def on_startup(dp):
-    # logging.warning(
-        # 'Starting connection. ')
     print('Starting connection. ')
     await bot.set_webhook(WEBHOOK_URL,drop_pending_updates=True)
 
 
 async def on_shutdown(dp):
-    # logging.warning('Bye! Shutting down webhook connection')
     print('Bye! Shutting down webhook connection')
 
 def main():
