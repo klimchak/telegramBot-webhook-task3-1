@@ -8,10 +8,11 @@ from bot.settings import (BOT_TOKEN, HEROKU_APP_NAME,
                           WEBHOOK_URL, WEBHOOK_PATH,
                           WEBAPP_HOST, WEBAPP_PORT)
 from email_validator import validate_email, EmailNotValidError          # библиотека валидации имейла
-import keyboard                                                         # keyboard
-import sffunc                                                           # sf function
+from bot.keyboard import kbStart, inlineKbAfterLogin, inlineKbAfterSetNewCard, inlineKbAnsSetCardOrNot
+from aiogram.types import ReplyKeyboardRemove
+import bot.sffunc                                                           # sf function
 import datetime
-from telegramcalendar import create_calendar                            # для календаря
+from bot.telegramcalendar import create_calendar                            # для календаря
 
 current_shown_dates={}
 bot = Bot(token=BOT_TOKEN)
