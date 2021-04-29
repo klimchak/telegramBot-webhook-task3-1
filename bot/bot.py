@@ -155,6 +155,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
         print('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
         sys.stdout.flush()
         cmessageUp(0)
+        setCurrExpCard('')
+        setDateExpCard('')
+        setDescrExpCard('')
+        setEmail('')
+        setIdContact('')
         for i in range(3):
             if i == 1:
                 await bot.answer_callback_query(callback_query.id)
@@ -253,6 +258,14 @@ async def echo_message(msg: types.Message):
                 if i == 0: 
                     await bot.delete_message(msg.chat.id, getBotLatestMessageId())
         except EmailNotValidError as e:
+            print("Ошибка валидации email:  " + str(e))
+        except EmailSyntaxError as e:
+            print("Ошибка валидации email:  " + str(e))
+        except EmailUndeliverableError as e:
+            print("Ошибка валидации email:  " + str(e))
+        except ValueError as e:
+            print("Ошибка валидации email:  " + str(e))
+        finally:
             # если имейл не валидный
             for i in range(3):
                 if i == 1:
