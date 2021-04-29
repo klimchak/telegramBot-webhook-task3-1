@@ -328,23 +328,8 @@ async def echo_message(msg: types.Message):
                 await bot.delete_message(msg.chat.id, getBotLatestMessageId())
         
     elif cmessage == 5:  # 3 шаг при добавлении карты
-        expectedType = False
-        if isinstance(msg.text, float):
-            expectedType = True
-        if expectedType == False:
-            if isinstance(msg.text, int):
-                expectedType = True
-        if expectedType == False:
-            cmessageUp(5)
-            for i in range(3):
-                if i == 1:
-                    await bot.delete_message(msg.chat.id, msg.message_id)
-                if i == 2:
-                    messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
-                    setBotLatestMessageId(messs.message_id)
-                if i == 0:  
-                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-        else:
+        try:
+            msgFloat = float(msg.text)
             setCurrExpCard(str(msg.text))
             cmessageUp(3)
             for i in range(3):
@@ -355,6 +340,44 @@ async def echo_message(msg: types.Message):
                     setBotLatestMessageId(messs.message_id)
                 if i == 0:  
                     await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+        except ValueError:
+            cmessageUp(5)
+            for i in range(3):
+                if i == 1:
+                    await bot.delete_message(msg.chat.id, msg.message_id)
+                if i == 2:
+                    messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
+                    setBotLatestMessageId(messs.message_id)
+                if i == 0:  
+                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+
+        # expectedType = False
+        # if isinstance(msg.text, float):
+        #     expectedType = True
+        # if expectedType == False:
+        #     if isinstance(msg.text, int):
+        #         expectedType = True
+        # if expectedType == False:
+        #     cmessageUp(5)
+        #     for i in range(3):
+        #         if i == 1:
+        #             await bot.delete_message(msg.chat.id, msg.message_id)
+        #         if i == 2:
+        #             messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
+        #             setBotLatestMessageId(messs.message_id)
+        #         if i == 0:  
+        #             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+        # else:
+        #     setCurrExpCard(str(msg.text))
+        #     cmessageUp(3)
+        #     for i in range(3):
+        #         if i == 1:
+        #             await bot.delete_message(msg.chat.id, msg.message_id)
+        #         if i == 2:
+        #             messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=inlineKbAnsSetCardOrNot)
+        #             setBotLatestMessageId(messs.message_id)
+        #         if i == 0:  
+        #             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
 
 
 
