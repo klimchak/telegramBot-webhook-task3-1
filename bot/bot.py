@@ -153,7 +153,8 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             await bot.answer_callback_query(callback_query.id, "Возникла ошибка! Попробуйте еще раз или обратитесь к администратору.", show_alert=True)
 
     if code == 'exit':
-        logging.info('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
+        print('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
+        # logging.info('\n        Успешный выход пользователя: ' + '\n        '+ str(callback_query.from_user.first_name) + '\n        ' + str(callback_query.from_user.last_name) + '\n        ' + str(callback_query.from_user.username))
         cmessageUp(0)
         for i in range(3):
             if i == 1:
@@ -268,7 +269,8 @@ async def echo_message(msg: types.Message):
         if dataLogin['totalSize'] == 1:
             if dataLogin['records'][0]['Admin__c'] == True:
                 cmessageUp(0)
-                logging.info('\n        Успешный вход администратора: ' + dataLogin['records'][0]['LastName'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
+                print('\n        Успешный вход администратора: ' + dataLogin['records'][0]['LastName'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
+                # logging.info('\n        Успешный вход администратора: ' + dataLogin['records'][0]['LastName'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
                 for i in range(3):
                     if i == 1:
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
@@ -279,7 +281,8 @@ async def echo_message(msg: types.Message):
                         await bot.delete_message(msg.chat.id, msg.message_id)
             else:
                 setIdContact(dataLogin['records'][0]['Id'])
-                logging.info('\n        Успешный вход пользователя: ' + dataLogin['records'][0]['LastName'] + '\n        Офис: ' + dataLogin['records'][0]['Office__c'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
+                print('\n        Успешный вход пользователя: ' + dataLogin['records'][0]['LastName'] + '\n        Офис: ' + dataLogin['records'][0]['Office__c'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
+                # logging.info('\n        Успешный вход пользователя: ' + dataLogin['records'][0]['LastName'] + '\n        Офис: ' + dataLogin['records'][0]['Office__c'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
                 cmessageUp(3)
                 dateLogin = datetime.datetime.now()
                 for i in range(4):
@@ -342,14 +345,15 @@ async def echo_message(msg: types.Message):
 
 
 async def on_startup(dp):
-    logging.warning(
-        'Starting connection. ')
+    # logging.warning(
+        # 'Starting connection. ')
+    print('Starting connection. ')
     await bot.set_webhook(WEBHOOK_URL,drop_pending_updates=True)
 
 
 async def on_shutdown(dp):
-    logging.warning('Bye! Shutting down webhook connection')
-
+    # logging.warning('Bye! Shutting down webhook connection')
+    print('Bye! Shutting down webhook connection')
 
 def main():
     logging.basicConfig(level=logging.INFO)
