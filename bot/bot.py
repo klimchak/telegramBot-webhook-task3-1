@@ -86,7 +86,7 @@ async def process_start_command(message: types.Message):
         if i == 1:
             try:
                 await bot.delete_message(message.chat.id, message.message_id)
-            except MessageToDeleteNotFound as e:
+            except Exception as e:
                 print('Found exception: ' + str(e))
         if i == 0: 
             messs = await bot.send_message(message.chat.id, "Введите логин", reply_markup=ReplyKeyboardRemove())
@@ -112,7 +112,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 0:
                 try:
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
                 
     if code == 'backtomain':
@@ -125,7 +125,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 0:  
                 try:
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
                 
     
@@ -143,7 +143,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 0:  
                 try:
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
                 
     
@@ -162,7 +162,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 if i == 0:  
                     try:
                         await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                    except MessageToDeleteNotFound as e:
+                    except Exception as e:
                         print('Found exception: ' + str(e))
                     
         else:
@@ -186,7 +186,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 0:  
                 try:
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
                 
         
@@ -209,7 +209,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 0:  
                 try:
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
                 
        
@@ -231,7 +231,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 if i == 0:  
                     try:
                         await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                    except MessageToDeleteNotFound as e:
+                    except Exception as e:
                         print('Found exception: ' + str(e))
                     
         else:
@@ -264,7 +264,7 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 0:  
                 try:
                     await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
     
     if "IGNORE" in callback_query.data:
@@ -289,7 +289,7 @@ async def echo_message(msg: types.Message):
                     if i == 1:
                         try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
                     if i == 2:
                         messs = await bot.send_message(msg.from_user.id, 'Email: ' + emailValid + ' прошел валидацию.\nВведите пароль:')
@@ -297,7 +297,7 @@ async def echo_message(msg: types.Message):
                     if i == 0: 
                         try:
                             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
             except Exception as e:
                 print("Ошибка валидации email:  " + str(e))
@@ -306,7 +306,7 @@ async def echo_message(msg: types.Message):
                     if i == 0:
                         try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
                     if i == 2:
                         mess = await bot.send_message(msg.from_user.id, str(e))
@@ -317,7 +317,7 @@ async def echo_message(msg: types.Message):
                         else:
                             try:
                                 await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                            except MessageToDeleteNotFound as e:
+                            except Exception as e:
                                 print('Found exception: ' + str(e))
                             
     elif cmessage == 1:
@@ -331,7 +331,7 @@ async def echo_message(msg: types.Message):
                     if i == 1:
                         try:
                             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
                     if i == 2:
                         mess = await bot.send_message(msg.from_user.id, 'К сожалению для администратора возможностей нет. Воспользуйтесь браузером.', reply_markup=kbStart)
@@ -339,7 +339,7 @@ async def echo_message(msg: types.Message):
                     if i == 0: 
                         try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
                         
             else:
@@ -356,12 +356,12 @@ async def echo_message(msg: types.Message):
                     elif i == 1:
                         try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
                     elif i == 0:
                         try:
                             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
         elif dataLogin['totalSize'] == 0:
             cmessageUp(0)
@@ -369,7 +369,7 @@ async def echo_message(msg: types.Message):
                 if i == 1:
                     try:
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                    except MessageToDeleteNotFound as e:
+                    except Exception as e:
                         print('Found exception: ' + str(e))
                 if i == 2:
                     mess = await bot.send_message(msg.from_user.id, 'Ошибка логина или пароля. Повторите попытку входа!\nВведите логин:')
@@ -377,7 +377,7 @@ async def echo_message(msg: types.Message):
                 if i == 0: 
                     try:
                         await bot.delete_message(msg.chat.id, msg.message_id)
-                    except MessageToDeleteNotFound as e:
+                    except Exception as e:
                         print('Found exception: ' + str(e))
     # elif cmessage == 2:  # действия админа
         # await bot.send_message(msg.from_user.id, 'админ ' + msg.text)
@@ -387,7 +387,7 @@ async def echo_message(msg: types.Message):
             if i == 1:
                 try:
                     await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
             if i == 2:
                 mess = await bot.send_message(msg.from_user.id, 'Извините. Я Вас не понял 😐\nВоспользуйтесь кнопками ниже 👇', reply_markup=inlineKbAfterLogin)
@@ -395,7 +395,7 @@ async def echo_message(msg: types.Message):
             if i == 0: 
                 try:
                     await bot.delete_message(msg.chat.id, msg.message_id)
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
         
     elif cmessage == 4:  # 2 шаг при добавлении карты
@@ -405,7 +405,7 @@ async def echo_message(msg: types.Message):
             if i == 1:
                 try:
                     await bot.delete_message(msg.chat.id, msg.message_id)
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
             if i == 2:
                 messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
@@ -413,7 +413,7 @@ async def echo_message(msg: types.Message):
             if i == 0:  
                 try:
                     await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                except MessageToDeleteNotFound as e:
+                except Exception as e:
                     print('Found exception: ' + str(e))
         
     elif cmessage == 5:  # 3 шаг при добавлении карты
@@ -426,7 +426,7 @@ async def echo_message(msg: types.Message):
                     if i == 1:
                         try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
                     if i == 2:
                         messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=inlineKbAnsSetCardOrNot)
@@ -434,7 +434,7 @@ async def echo_message(msg: types.Message):
                     if i == 0:  
                         try:
                             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                        except MessageToDeleteNotFound as e:
+                        except Exception as e:
                             print('Found exception: ' + str(e))
             else:
                 raise ValueError("The flow rate cannot be negative or zero.")
@@ -444,7 +444,7 @@ async def echo_message(msg: types.Message):
                 if i == 1:
                     try:
                         await bot.delete_message(msg.chat.id, msg.message_id)
-                    except MessageToDeleteNotFound as e:
+                    except Exception as e:
                         print('Found exception: ' + str(e))
                 if i == 2:
                     messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
@@ -452,14 +452,14 @@ async def echo_message(msg: types.Message):
                 if i == 0:  
                     try:
                         await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-                    except MessageToDeleteNotFound as e:
+                    except Exception as e:
                         print('Found exception: ' + str(e))
 
 async def on_startup(dp):
     print('Starting connection. ')
     try:
         await bot.set_webhook(WEBHOOK_URL,drop_pending_updates=True)
-    except MessageToDeleteNotFound as e:
+    except Exception as e:
         print('Found exception: ' + str(e))
 
 
@@ -477,6 +477,6 @@ def main():
         host=WEBAPP_HOST,
         port=WEBAPP_PORT,
     )
-    except MessageToDeleteNotFound as e:
+    except Exception as e:
         print('Found exception: ' + str(e))
     
