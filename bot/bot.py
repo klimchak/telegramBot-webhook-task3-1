@@ -84,7 +84,10 @@ async def process_start_command(message: types.Message):
     cmessageUp(0)
     for i in range(2):
         if i == 1:
-            await bot.delete_message(message.chat.id, message.message_id)
+            try:
+                await bot.delete_message(message.chat.id, message.message_id)
+            except MessageToDeleteNotFound as e:
+                print('Found exception: ' + str(e))
         if i == 0: 
             messs = await bot.send_message(message.chat.id, "Введите логин", reply_markup=ReplyKeyboardRemove())
             setBotLatestMessageId(messs.message_id)
@@ -107,8 +110,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 messs = await bot.send_message(callback_query.from_user.id, 'На какой день желаете создать карточку?', reply_markup=inlineKbAfterSetNewCard)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:
-                await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
-    
+                try:
+                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
+                
     if code == 'backtomain':
         for i in range(3):
             if i == 1:
@@ -117,7 +123,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 messs = await bot.send_message(callback_query.from_user.id, 'Какую операцию желаете выполнить?', reply_markup=inlineKbAfterLogin)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
-                await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
+                
     
     if code == 'setdatetoday':
         nowDate = datetime.datetime.now()
@@ -131,7 +141,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 messs = await bot.send_message(callback_query.from_user.id, "Создаем карту на дату: " + nowDateStr + "\nВведите описание траты.")
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
-                await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
+                
     
     if code == 'setthisexpcard':
         result = setNewExpCard(getIdContact(), getDateExpCard(), getCurrExpCard(), getDescrExpCard())
@@ -146,7 +160,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                     mess = await bot.send_message(callback_query.from_user.id, 'Ваши дальнейшие действия? ', reply_markup=inlineKbAfterLogin)
                     setBotLatestMessageId(mess.message_id)                
                 if i == 0:  
-                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                    try:
+                        await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                    except MessageToDeleteNotFound as e:
+                        print('Found exception: ' + str(e))
+                    
         else:
             cmessageUp(3)
             await bot.answer_callback_query(callback_query.id, "Возникла ошибка! Попробуйте еще раз или обратитесь к администратору.", show_alert=True)
@@ -166,7 +184,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
             if i == 2:
                 await bot.send_message(callback_query.from_user.id, 'Вы вышли из приложения Expense App.\nДля входа нажмите /start и введите Email и пароль.', reply_markup=kbStart)        
             if i == 0:  
-                await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
+                
         
     if code == 'help':
         helpText = 'Взаимодействие с ботом осуществляется посредством кнопок.\nДля выполнения необходимых действий следуйте подсказкам.\np.s. это первый бот и первый опыт программирования на Python'
@@ -185,7 +207,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 messs = await bot.send_message(callback_query.from_user.id, "На какой день желаете создать карточку?", reply_markup=markup)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
-                await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
+                
        
     if 'DAY' in callback_query.data[0:13]:
         chat_id = callback_query.from_user.id
@@ -203,7 +229,11 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                     messs = await bot.send_message(callback_query.from_user.id, "Создаем карту на дату: " + str(date)[0:10] + "\nВведите описание траты.")
                     setBotLatestMessageId(messs.message_id)
                 if i == 0:  
-                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                    try:
+                        await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                    except MessageToDeleteNotFound as e:
+                        print('Found exception: ' + str(e))
+                    
         else:
             pass
     
@@ -232,7 +262,10 @@ async def process_callback_kb1btn1(callback_query: types.CallbackQuery):
                 messs = await bot.send_message(callback_query.from_user.id, "На какой день желаете создать карточку?", reply_markup=markup)
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
-                await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(callback_query.from_user.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
     
     if "IGNORE" in callback_query.data:
         await bot.answer_callback_query(callback_query.id, "Это поле пустое. 🙏 не используйте его")
@@ -254,21 +287,27 @@ async def echo_message(msg: types.Message):
                 cmessageUp(1)
                 for i in range(3):
                     if i == 1:
-                        await bot.delete_message(msg.chat.id, msg.message_id)
+                        try:
+                            await bot.delete_message(msg.chat.id, msg.message_id)
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
                     if i == 2:
                         messs = await bot.send_message(msg.from_user.id, 'Email: ' + emailValid + ' прошел валидацию.\nВведите пароль:')
                         setBotLatestMessageId(messs.message_id)
                     if i == 0: 
-                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        try:
+                            await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
             except Exception as e:
                 print("Ошибка валидации email:  " + str(e))
                 # если имейл не валидный(EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e
                 for i in range(3):
                     if i == 0:
-                        if not msg.message_id and not msg.chat.id:
+                        try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        else:
-                            continue
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
                     if i == 2:
                         mess = await bot.send_message(msg.from_user.id, str(e))
                         setBotLatestMessageId(mess.message_id)
@@ -276,7 +315,11 @@ async def echo_message(msg: types.Message):
                         if not getBotLatestMessageId() and not msg.chat.id:
                             continue
                         else:
-                            await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                            try:
+                                await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                            except MessageToDeleteNotFound as e:
+                                print('Found exception: ' + str(e))
+                            
     elif cmessage == 1:
         emailVar = getEmail()
         dataLogin = auth(emailVar, msg.text)
@@ -286,12 +329,19 @@ async def echo_message(msg: types.Message):
                 print('\n        Успешный вход администратора: ' + dataLogin['records'][0]['LastName'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
                 for i in range(3):
                     if i == 1:
-                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        try:
+                            await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
                     if i == 2:
                         mess = await bot.send_message(msg.from_user.id, 'К сожалению для администратора возможностей нет. Воспользуйтесь браузером.', reply_markup=kbStart)
                         setBotLatestMessageId(mess.message_id)
                     if i == 0: 
-                        await bot.delete_message(msg.chat.id, msg.message_id)
+                        try:
+                            await bot.delete_message(msg.chat.id, msg.message_id)
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
+                        
             else:
                 setIdContact(dataLogin['records'][0]['Id'])
                 print('\n        Успешный вход пользователя: ' + dataLogin['records'][0]['LastName'] + '\n        Офис: ' + dataLogin['records'][0]['Office__c'] + '\n        Email: ' + dataLogin['records'][0]['Email'])
@@ -304,43 +354,67 @@ async def echo_message(msg: types.Message):
                         mess = await bot.send_message(msg.from_user.id, 'Ваши дальнейшие действия?', reply_markup=inlineKbAfterLogin)
                         setBotLatestMessageId(mess.message_id)
                     elif i == 1:
-                        await bot.delete_message(msg.chat.id, msg.message_id)
+                        try:
+                            await bot.delete_message(msg.chat.id, msg.message_id)
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
                     elif i == 0:
-                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        try:
+                            await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
         elif dataLogin['totalSize'] == 0:
             cmessageUp(0)
             for i in range(3):
                 if i == 1:
-                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                    try:
+                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                    except MessageToDeleteNotFound as e:
+                        print('Found exception: ' + str(e))
                 if i == 2:
                     mess = await bot.send_message(msg.from_user.id, 'Ошибка логина или пароля. Повторите попытку входа!\nВведите логин:')
                     setBotLatestMessageId(mess.message_id)
                 if i == 0: 
-                    await bot.delete_message(msg.chat.id, msg.message_id)
+                    try:
+                        await bot.delete_message(msg.chat.id, msg.message_id)
+                    except MessageToDeleteNotFound as e:
+                        print('Found exception: ' + str(e))
     # elif cmessage == 2:  # действия админа
         # await bot.send_message(msg.from_user.id, 'админ ' + msg.text)
     elif cmessage == 3:  # действия пользователя
         cmessageUp(3)
         for i in range(3):
             if i == 1:
-                await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
             if i == 2:
                 mess = await bot.send_message(msg.from_user.id, 'Извините. Я Вас не понял 😐\nВоспользуйтесь кнопками ниже 👇', reply_markup=inlineKbAfterLogin)
                 setBotLatestMessageId(mess.message_id)
             if i == 0: 
-                await bot.delete_message(msg.chat.id, msg.message_id)
+                try:
+                    await bot.delete_message(msg.chat.id, msg.message_id)
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
         
     elif cmessage == 4:  # 2 шаг при добавлении карты
         setDescrExpCard(msg.text.strip())
         cmessageUp(5)
         for i in range(3):
             if i == 1:
-                await bot.delete_message(msg.chat.id, msg.message_id)
+                try:
+                    await bot.delete_message(msg.chat.id, msg.message_id)
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
             if i == 2:
                 messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
                 setBotLatestMessageId(messs.message_id)
             if i == 0:  
-                await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                try:
+                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                except MessageToDeleteNotFound as e:
+                    print('Found exception: ' + str(e))
         
     elif cmessage == 5:  # 3 шаг при добавлении карты
         try:
@@ -350,29 +424,43 @@ async def echo_message(msg: types.Message):
                 cmessageUp(3)
                 for i in range(3):
                     if i == 1:
-                        await bot.delete_message(msg.chat.id, msg.message_id)
+                        try:
+                            await bot.delete_message(msg.chat.id, msg.message_id)
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
                     if i == 2:
                         messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=inlineKbAnsSetCardOrNot)
                         setBotLatestMessageId(messs.message_id)
                     if i == 0:  
-                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        try:
+                            await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                        except MessageToDeleteNotFound as e:
+                            print('Found exception: ' + str(e))
             else:
                 raise ValueError("The flow rate cannot be negative or zero.")
         except ValueError:
             cmessageUp(5)
             for i in range(3):
                 if i == 1:
-                    await bot.delete_message(msg.chat.id, msg.message_id)
+                    try:
+                        await bot.delete_message(msg.chat.id, msg.message_id)
+                    except MessageToDeleteNotFound as e:
+                        print('Found exception: ' + str(e))
                 if i == 2:
                     messs = await bot.send_message(msg.from_user.id, 'Введите сумму (Пример:\n10\n10.1')
                     setBotLatestMessageId(messs.message_id)
                 if i == 0:  
-                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
-
+                    try:
+                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+                    except MessageToDeleteNotFound as e:
+                        print('Found exception: ' + str(e))
 
 async def on_startup(dp):
     print('Starting connection. ')
-    await bot.set_webhook(WEBHOOK_URL,drop_pending_updates=True)
+    try:
+        await bot.set_webhook(WEBHOOK_URL,drop_pending_updates=True)
+    except MessageToDeleteNotFound as e:
+        print('Found exception: ' + str(e))
 
 
 async def on_shutdown(dp):
@@ -380,7 +468,8 @@ async def on_shutdown(dp):
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    start_webhook(
+    try:
+        start_webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_PATH,
         skip_updates=True,
@@ -388,3 +477,6 @@ def main():
         host=WEBAPP_HOST,
         port=WEBAPP_PORT,
     )
+    except MessageToDeleteNotFound as e:
+        print('Found exception: ' + str(e))
+    
