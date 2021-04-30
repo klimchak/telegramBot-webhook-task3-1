@@ -342,16 +342,19 @@ async def echo_message(msg: types.Message):
     elif cmessage == 5:  # 3 шаг при добавлении карты
         try:
             msgFloat = float(msg.text)
-            setCurrExpCard(str(msg.text))
-            cmessageUp(3)
-            for i in range(3):
-                if i == 1:
-                    await bot.delete_message(msg.chat.id, msg.message_id)
-                if i == 2:
-                    messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=inlineKbAnsSetCardOrNot)
-                    setBotLatestMessageId(messs.message_id)
-                if i == 0:  
-                    await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+            if msgFloat > 0:
+                setCurrExpCard(str(msg.text))
+                cmessageUp(3)
+                for i in range(3):
+                    if i == 1:
+                        await bot.delete_message(msg.chat.id, msg.message_id)
+                    if i == 2:
+                        messs = await bot.send_message(msg.from_user.id, 'Данные для новой карточки: ' + '\n' + getCurrExpCard() + '\n' + getDateExpCard() + '\n' + getDescrExpCard(), reply_markup=inlineKbAnsSetCardOrNot)
+                        setBotLatestMessageId(messs.message_id)
+                    if i == 0:  
+                        await bot.delete_message(msg.chat.id, getBotLatestMessageId())
+            else:
+                raise ValueError("The flow rate cannot be negative or zero.")
         except ValueError:
             cmessageUp(5)
             for i in range(3):
