@@ -299,17 +299,17 @@ async def echo_message(msg: types.Message):
                             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
                         except Exception as e:
                             print('Found exception: ' + str(e))
-            except Exception as e:
-                print("Ошибка валидации email:  " + str(e))
+            except Exception as s:
+                print("Ошибка валидации email:  " + str(s))
                 # если имейл не валидный(EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e
                 for i in range(3):
                     if i == 0:
                         try:
                             await bot.delete_message(msg.chat.id, msg.message_id)
-                        except Exception as e:
-                            print('Found exception: ' + str(e))
+                        except Exception as a:
+                            print('Found exception: ' + str(a))
                     if i == 2:
-                        mess = await bot.send_message(msg.from_user.id, str(e))
+                        mess = await bot.send_message(msg.from_user.id, str(s))
                         setBotLatestMessageId(mess.message_id)
                     if i == 1: 
                         if not getBotLatestMessageId() and not msg.chat.id:
