@@ -265,12 +265,15 @@ async def echo_message(msg: types.Message):
                 # если имейл не валидный(EmailNotValidError, EmailSyntaxError, EmailUndeliverableError, ValueError)  as e
                 for i in range(3):
                     if i == 0:
-                        await bot.delete_message(msg.chat.id, msg.message_id)
+                        if not msg.message_id and not msg.chat.id:
+                            await bot.delete_message(msg.chat.id, msg.message_id)
+                        else:
+                            continue
                     if i == 2:
                         mess = await bot.send_message(msg.from_user.id, str(e))
                         setBotLatestMessageId(mess.message_id)
                     if i == 1: 
-                        if not getBotLatestMessageId():
+                        if not getBotLatestMessageId() and not msg.chat.id:
                             continue
                         else:
                             await bot.delete_message(msg.chat.id, getBotLatestMessageId())
